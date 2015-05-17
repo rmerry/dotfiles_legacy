@@ -1,9 +1,32 @@
-" Environment Settings
-"---------------------
 set nocompatible "Force not to run like vi
+filetype off
+
+" Plugins
+"--------
+" Vundle specific settings NOTE: Vundle must be installed in the ~/[.vim|vimfiles]/bundle folder
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+" All plugins must go here
+Plugin 'altercation/vim-colors-solarized'
+
+" Fuzzy file buffer searching
+Plugin 'kien/ctrlp.vim'
+
+" File browser
+Plugin 'scrooloose/nerdtree'
+
+call vundle#end()
+filetype plugin indent on
+
+
+" Environment Settings
+"
+"---------------------
 set background=dark
 syntax on
-filetype off
 
 " Buffer Settings
 "----------------
@@ -21,9 +44,9 @@ set bs=2
 " Colours
 "----------------
 if has('gui_running')
-    colorscheme codeschool
+    colorscheme solarized
 else
-    colorscheme ron
+    colorscheme solarized
 endif
 
 " Editor options
@@ -49,14 +72,3 @@ set noswapfile
 "set relativenumber
 set number
 
-" Plugins
-"--------
-" Vundle specific settings NOTE: Vundle must be installed in the ~/[.vim|vimfiles]/bundle folder
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-
-" All plugins must go here
-
-call vundle#end()
-filetype plugin indent on
