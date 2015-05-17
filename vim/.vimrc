@@ -18,9 +18,18 @@ Plugin 'kien/ctrlp.vim'
 " File browser
 Plugin 'scrooloose/nerdtree'
 
+" Tern (make sure you 'npm install tern' in the term_for_vim folder
+" This provides JavaScript omni-completion
+Plugin 'marijnh/tern_for_vim'
+
 call vundle#end()
 filetype plugin indent on
 
+" Plugin Specific Settings
+" ------------------------
+" Tern
+let g:tern_map_keys=1
+let g:tern_show_argument_hints='on_hold'
 
 " Environment Settings
 "
@@ -46,7 +55,7 @@ set bs=2
 if has('gui_running')
     colorscheme solarized
 else
-    colorscheme solarized
+    colorscheme ron
 endif
 
 " Editor options
