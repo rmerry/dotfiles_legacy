@@ -22,6 +22,16 @@ Plugin 'scrooloose/nerdtree'
 " This provides JavaScript omni-completion
 Plugin 'marijnh/tern_for_vim'
 
+" JSHint Implemention
+" " JSHint should be intalled on the system, i.e., 'sudo npm install -g
+" jshint'
+Plugin 'walm/jshint.vim'
+
+" Syntactic
+" Integrates with external 3rd party syntax checkers and displays errors on
+" save
+Plugin 'scrooloose/syntastic'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -30,6 +40,15 @@ filetype plugin indent on
 " Tern
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " Environment Settings
 "
