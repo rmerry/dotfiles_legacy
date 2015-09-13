@@ -210,6 +210,13 @@
 
   " }}}
 
+  " ShellCheck {{{
+
+      autocmd Filetype sh set makeprg=shellcheck\ -f\ gcc\ % tabstop=4 sts=4 sw=4 et smarttab
+      autocmd BufWritePost * :silent make | redraw!
+
+  " }}}
+
   " Solarized {{{
 
     let g:solarized_termcolors=256
