@@ -307,6 +307,12 @@
 
   " }}}
 
+  " Filetype Specific {{{
+
+    autocmd Filetype js set tabstop=2 sts=2 sw=2 et smarttab
+
+  "  }}}
+
   " Terminal Specific {{{
 
     set mouse=a " Mouse Support In Terminal
