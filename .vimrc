@@ -4,6 +4,8 @@ filetype off
 
 if has("win32")
   set rtp+=$USERPROFILE/.vim/bundle/Vundle.vim
+else
+  set rtp+=~/.vim/bundle/Vundle.vim
 endif
 
 " }}}
