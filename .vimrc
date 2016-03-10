@@ -27,6 +27,7 @@ set lazyredraw
 " Vundle specific settings NOTE: Vundle must be installed in the ~/[.vim|vimfiles]/bundle folder
 call vundle#begin()
 
+  Plugin 'mileszs/ack.vim'
   Plugin 'gmarik/Vundle.vim'
   Plugin 'altercation/vim-colors-solarized'
   Plugin 'morhetz/gruvbox'
@@ -34,13 +35,16 @@ call vundle#begin()
   " Plugin 'Valloric/YouCompleteMe' " YouCompleteMe - AutoComplete plugin
   Plugin 'scrooloose/nerdtree' " File browser
   " Vim JS Indent
-  Plugin 'pangloss/vim-javascript' " Better indentation and syntax highlighting
-  Plugin 'gavocanov/vim-js-indent' " Better than vim-javascript
+  Plugin 'jelera/vim-javascript-syntax'
+  Plugin 'vim-scripts/JavaScript-Indent'
+  "Plugin 'pangloss/vim-javascript' " Better indentation and syntax highlighting
+  "Plugin 'gavocanov/vim-js-indent' " Better than vim-javascript
   " Tern (make sure you 'npm install tern' in the term_for_vim folder
   " This provides JavaScript omni-completion
   Plugin 'marijnh/tern_for_vim'
   " JSHint should be intalled on the system, i.e., 'sudo npm install -g
   Plugin 'walm/jshint.vim'
+  Plugin 'jpalardy/vim-slime'
   " Tools to make Vim superb for developing with Node.js.
   " It's the Node equivalent of Rails.vim (vimscript #1567) and Rake.vim (vimscript #3669).
   Plugin 'moll/vim-node'
@@ -145,6 +149,7 @@ call vundle#end()            " required
 
   " Get Code Issues and syntax errors
   let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+  let g:syntastic_loc_list_height=2
   " If you are using the omnisharp-roslyn backend, use the following
   " let g:syntastic_cs_checkers = ['code_checker']
 
@@ -218,8 +223,14 @@ call vundle#end()            " required
   " ShellCheck {{{
 
   autocmd Filetype sh set makeprg=shellcheck\ -f\ gcc\ % tabstop=4 sts=4 sw=4 et smarttab
-  autocmd BufWritePost * :silent make | redraw!
+  "autocmd BufWritePost * :silent make | redraw!
 
+  " }}}
+
+  " Solarized {{{
+
+  let g:swlime_target = "tmux"
+  let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
   " }}}
 
   " Solarized {{{
@@ -323,3 +334,21 @@ syntax on
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
+"
+" Strip the newline from the end of a string
+function! Chomp(str)
+  return substitute(a:str, '\n$', '', '')
+endfunction
+
+" Find a file and pass it to cmd
+function! DmenuOpen(cmd)
+  let fname = Chomp(system("git ls-files | dmenu -i -l 20 -p " .  a:cmd))
+  if empty(fname)
+    return
+  endif
+  execute a:cmd . " " . fname
+endfunction
+
+map <c-f><c-f> :call DmenuOpen("e")<cr>
+map <c-f><c-v> :call DmenuOpen("vsplit")<cr>
+map <c-f><c-h> :call DmenuOpen("split")<cr>
