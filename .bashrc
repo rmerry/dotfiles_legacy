@@ -5,6 +5,10 @@
 # Setting the TERM to 256 colours
 TERM=xterm-color
 
+# Set the default editor
+export EDITOR=vim
+
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
