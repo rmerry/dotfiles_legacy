@@ -1,0 +1,11 @@
+[user]
+	name = Richard Merry
+	email = richard.merry@piksel.com
+[core]
+	editor = vim
+
+[alias]
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  st = status
+  qlog = !git --no-pager log --decorate=short --pretty=oneline --abbrev-commit --graph
+  alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
