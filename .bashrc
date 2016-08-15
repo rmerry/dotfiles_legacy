@@ -8,7 +8,6 @@ TERM=xterm-color
 # Set the default editor
 export EDITOR=vim
 
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -94,13 +93,23 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# Tmux
+alias tmux='tmux -2'
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+
+# git aliases
+#git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ /
+alias lg='git log --color --graph --pretty=format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset --abbrev-commit'
+#qlog = !git --no-pager log --decorate=short --pretty=oneline --abbrev-commit --graph
+#st = status
+
 # Development
-alias ngrep='grep -Ern --exclude-dir=node_modules'
+alias ngrep='grep -Ern --exclude-dir=node_modules --exclude=\*.js.map --exclude=\bundle.js --exclude=\app.*.js'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -127,8 +136,11 @@ if ! shopt -oq posix; then
 fi
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="/usr/java/jre1.8.0_92/bin:$PATH" # Add JRE to PATH
+export JAVA_HOME=/usr/java/jre1.8.0_92/bin
 
 # Globbing Options (extended globs [extglob])
 # You can disable extglobbing with: shopt -u extglob
 shopt -s extglob
-fortune -s | cowsay
+
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
