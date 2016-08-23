@@ -2,9 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Setting the TERM to 256 colours
-TERM=xterm-color
-
 # Set the default editor
 export EDITOR=vim
 
@@ -105,6 +102,7 @@ alias l='ls -CF'
 # git aliases
 #git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ /
 alias lg='git log --color --graph --pretty=format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset --abbrev-commit'
+alias spull='git pull --rebase'
 #qlog = !git --no-pager log --decorate=short --pretty=oneline --abbrev-commit --graph
 #st = status
 
