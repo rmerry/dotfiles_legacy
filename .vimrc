@@ -41,6 +41,7 @@ call vundle#begin()
   Plugin 'kien/ctrlp.vim' " Fuzzy file buffer searching
   Plugin 'jelera/vim-javascript-syntax'
   Plugin 'vim-scripts/JavaScript-Indent'
+  Plugin 'godlygeek/tabular' " Provide tabularisation functionality through (:tabularize)
   " Tern (make sure you 'npm install tern' in the term_for_vim folder
   " This provides JavaScript omni-completion
   Plugin 'marijnh/tern_for_vim'
@@ -152,6 +153,7 @@ call vundle#end()
 
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 1
+  let g:syntastic_loc_list_height = 3
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 
