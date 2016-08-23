@@ -1,0 +1,93 @@
+!
+! Richard Merry (last update: 22/08/16)
+! Note: remember to run >`xrdb ~/.Xdefaults` after changing this file
+! 
+
+! colours ---------------------------------------------------------------
+
+#define black           #2E3436
+#define lblack           #555753
+#define red           #CC0000
+#define lred           #EF2929
+#define green           #4E9A06
+#define lgreen           #8AE234
+#define yellow           #C4A000
+#define lyellow          #FCE94F
+#define blue           #3465A4
+#define lblue          #729FCF
+#define magenta           #75507B
+#define lmagenta          #AD7FA8
+#define cyan           #06989A
+#define lcyan          #34E2E2
+#define white           #D3D7CF
+#define lwhite          #EEEEEC
+
+#define S_base00        #626262
+#define S_base01        #585858
+#define S_base02        #262626
+#define S_base03        #1c1c1c
+
+#define S_base0         #b7b7b7
+#define S_base1         #8a8a8a
+#define S_base2         #e4e4e4
+#define S_base3         #ffffd7
+
+#define S_yellow        #af8700
+#define S_orange        #d75f00
+#define S_red           #d70000
+#define S_magenta       #af005f
+#define S_violet        #5f5faf
+#define S_blue          #0087ff
+#define S_cyan          #00afaf
+#define S_green         #5f8700
+
+*background:            S_base03
+*foreground:            S_base0
+*fadeColor:             S_base03
+*cursorColor:           S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
+
+*color0:                black 
+*color8:                lblack
+*color1:                red
+*color9:                lred
+*color2:                green
+*color10:               lgreen
+*color3:                yellow
+*color11:               lyellow
+*color4:                blue
+*color12:               lblue
+*color5:                magenta
+*color13:               lmagenta
+*color6:                cyan
+*color14:               lcyan
+*color7:                white
+*color15:               lwhite
+
+! urxvt (terminal)  ---------------------------------------------------------------
+
+URxvt*scrollBar:false
+URxvt*urlLauncher: chromium
+
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          false
+URxvt.fading:               0
+
+! URxvt.visualBell:           true
+URxvt.urgentOnBell:         true
+URxvt.loginShell:           true
+URxvt.saveLines:            50
+URxvt.internalBorder:       3
+URxvt.lineSpace:            0
+!disable ctrl+shift-x key bindings (conflicts with Vim)
+URxvt*iso14755: False
+
+! Fonts
+URxvt.allow_bold:           true
+!URxvt*font: xft:DejaVu Sans Mono:pixelsize=16
+!URxvt*boldFont: xft:DejaVu Sans Mono:pixelsize=16
+URxvt*font:               xft:Inconsolata:style=Medium:size=14:antialias=true:hinting=slight
+URxvt*boldFont:           xft:Inconsolata:style=Bold:size=14:antialias=true:hinting=slight
+
