@@ -19,8 +19,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=100000
+HISTFILESIZE=$HISTSIZE
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -40,7 +40,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    rxvt*|xterm*|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -79,16 +79,10 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    alias egrep='grep -E --color=auto'
 fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Tmux
 alias tmux='tmux -2'
@@ -97,6 +91,7 @@ alias tmux='tmux -2'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias vi='vim'
 
 
 # git aliases
@@ -107,7 +102,7 @@ alias spull='git pull --rebase'
 #st = status
 
 # Development
-alias ngrep='grep -Ern --exclude-dir=node_modules --exclude=\*.js.map --exclude=\bundle.js --exclude=\app.*.js'
+alias ngrep='grep -Ern --exclude-dir=node_modules --exclude-dir=logs --exclude=\*.xml --exclude=\*.html --exclude=\*.js.map --exclude=\bundle.js --exclude=\app.*.js'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -142,3 +137,5 @@ export JAVA_HOME=/usr/java/jre1.8.0_92/bin
 shopt -s extglob
 
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
+export PATH=~/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH
