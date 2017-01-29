@@ -83,11 +83,12 @@ call vundle#end()
   "  'r' - the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr
   "  'a' - like c, but only if the current working directory outside of CtrlP is not a direct ancestor of the directory of the current file.
   "  0 or '' (empty string) - disable this feature.
-  let g:ctrlp_working_path_mode = ''
+  let g:ctrlp_working_path_mode = 'ra'
   let g:ctrlp_map = '<c-p>'
   let g:ctrlp_cmd = 'CtrlP'
   let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:40,results:40'
   let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+  let g:ctrlp_show_hidden = 1
 
   nnoremap <leader><c-p> :CtrlPMRUFiles<CR>
 
