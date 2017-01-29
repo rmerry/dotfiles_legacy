@@ -1,0 +1,52 @@
+#!/bin/bash
+# Richard Merry
+#
+# Simple script to selective copy configuration
+# dot files into their appropriate locations
+#
+
+CP="cp --interactive"
+
+case $1 in
+all)
+    echo "'all' command not yet implemented"
+    ;;
+bash)
+    echo "Updating Bash configuration files..."
+	${CP} ./bash/.bashrc ~/.bashrc
+	${CP} ./bash/.bash_profile ~/.bash_profile
+	${CP} ./bash/.inputrc ~/.inputrc
+    ;;
+git)
+    echo "Updating git configuration files..."
+	${CP} ./git/.gitconfig ~/.gitconfig
+	${CP} ./git/ignore ~/.config/git/ignore
+    ;;
+tmux)
+    echo "Updating tmux configuration files..."
+	${CP} ./tmux/.tmux.conf ~/.tmux/.tmux.conf
+    ;;
+vim)
+    echo "Updating .vimrc configuration file..."
+	${CP} ./vim/.vimrc ~/.vimrc
+    ;;
+x11|X11)
+    echo "Updating .Xresources configuration file..."
+	${CP} ./x11/.Xresources ~/.Xresources
+    ;;
+xfce)
+    echo "'xfce' command not yet implemented"
+    ;;
+*)
+    echo "Usage: setup <COMMAND>"
+    echo ""
+    echo "COMMAND"
+    echo "  all        - Update everything"
+    echo "  bash       - Update Bash configuration files"
+    echo "  git        - Update git configuration files"
+    echo "  tmux       - Update tmux configuration files"
+    echo "  vim        - Update .vimrc file"
+    echo "  x11|X11    - Update .Xresources file"
+    echo "  xfce       - Update XFCE configuration files"
+    echo ""
+esac
