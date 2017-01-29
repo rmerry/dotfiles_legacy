@@ -5,39 +5,60 @@
 # dot files into their appropriate locations
 #
 
-CP="cp --interactive"
+COLOUR_GREEN="\033[0;32m"
+COLOUR_NONE="\e[0m"
+COLOUR_RED="\033[0;31m"
 
-case $1 in
-all)
-    echo "'all' command not yet implemented"
-    ;;
-bash)
-    echo "Updating Bash configuration files..."
-	${CP} ./bash/.bashrc ~/.bashrc
-	${CP} ./bash/.bash_profile ~/.bash_profile
-	${CP} ./bash/.inputrc ~/.inputrc
-    ;;
-git)
-    echo "Updating git configuration files..."
-	${CP} ./git/.gitconfig ~/.gitconfig
-	${CP} ./git/ignore ~/.config/git/ignore
-    ;;
-tmux)
-    echo "Updating tmux configuration files..."
-	${CP} ./tmux/.tmux.conf ~/.tmux/.tmux.conf
-    ;;
-vim)
-    echo "Updating .vimrc configuration file..."
-	${CP} ./vim/.vimrc ~/.vimrc
-    ;;
-x11|X11)
-    echo "Updating .Xresources configuration file..."
-	${CP} ./x11/.Xresources ~/.Xresources
-    ;;
-xfce)
-    echo "'xfce' command not yet implemented"
-    ;;
-*)
+CP="cp"
+
+copy_file() {
+    if [[ $2 -nt $1 ]]; then
+        printf "[%b%s%b] %s --> %s\n" $COLOUR_RED "x" $COLOUR_NONE $1 $2
+        return
+    else
+        printf "[%b%s%b] %s --> %s\n" $COLOUR_GREEN "x" $COLOUR_NONE $1 $2
+    fi
+
+    ${CP} $1 $2 
+}
+
+update_local() {
+    case $1 in
+    all)
+        update_local "bash"
+        update_local "git"
+        update_local "tmux"
+        update_local "vim"
+        update_local "x11"
+        update_local "xfce"
+        ;;
+    bash)
+        copy_file ./bash/.bashrc ~/.bashrc
+        copy_file ./bash/.bash_profile ~/.bash_profile
+        copy_file ./bash/.inputrc ~/.inputrc
+        ;;
+    git)
+        copy_file ./git/.gitconfig ~/.gitconfig
+        copy_file ./git/ignore ~/.config/git/ignore
+        ;;
+    tmux)
+        copy_file ./tmux/.tmux.conf ~/.tmux/.tmux.conf
+        ;;
+    vim)
+        copy_file ./vim/.vimrc ~/.vimrc
+        ;;
+    x11|X11)
+        copy_file ./x11/.Xresources ~/.Xresources
+        ;;
+    xfce)
+        ;;
+    *)
+        exit 1
+        ;;
+    esac
+}
+
+print_usage() {
     echo "Usage: setup <COMMAND>"
     echo ""
     echo "COMMAND"
@@ -49,4 +70,16 @@ xfce)
     echo "  x11|X11    - Update .Xresources file"
     echo "  xfce       - Update XFCE configuration files"
     echo ""
+    exit 1
+}
+
+case $1 in
+all|bash|git|tmux|vim|x11|X11)
+    update_local $1
+    ;;
+xfce)
+    echo "'xfce' command not yet implemented"
+    ;;
+*)
+    print_usage
 esac
