@@ -58,6 +58,7 @@ call vundle#begin()
   Plugin 'tpope/vim-cucumber'
   Plugin 'bling/vim-airline'
   Plugin 'rking/ag.vim' 
+  Plugin 'ngmy/vim-rubocop' 
   "Plugin 'airblade/vim-rooter' 
   "Plugin 'walm/jshint.vim' " JSHint should be intalled on the system, i.e., 'sudo npm install -g
   "Plugin 'scrooloose/nerdtree' " File browser
@@ -88,8 +89,7 @@ call vundle#end()
   let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:40,results:40'
   let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
-  nnoremap <leader>pr :CtrlPMRUFiles<CR>
-  "nnoremap <space>/ :CtrlPMRUFiles<CR>
+  nnoremap <leader><c-p> :CtrlPMRUFiles<CR>
 
   " }}}
 
@@ -162,8 +162,8 @@ call vundle#end()
     autocmd FileType javascript call SetJSLinter()
 
     function SetJSLinter()
-      if filereadable(globpath('.', '.eslintrc*'))
-        echo "it is readable"
+      "the api folder is a work specific environment configuration
+      if filereadable(globpath('.', '.eslintrc*')) || filereadable(globpath('./api/', '.eslintrc*'))
         let g:syntastic_javascript_checkers = ['eslint']
       else
         "autocmd FileType javascript let g:syntastic_javascript_checkers = ['jshint', 'jscs']
@@ -233,11 +233,12 @@ set t_Co=256
   set foldlevel=2
 
   " Tab Option
-  set expandtab
+  set expandtab         " turn tabs into spaces
   set smartindent
-  set shiftwidth=2
-  set softtabstop=2
-  set tabstop=2
+  set autoindent
+  set shiftwidth=2      " number of spaces for each step of (auto)indent
+  set softtabstop=2     " number of spaces tab 'counts for' when editing
+  set tabstop=2         " number of spaces tab 'counts for' in the file
 
   set laststatus=2 " always display statusbar
 
@@ -246,6 +247,7 @@ set t_Co=256
   " Filetype Specific {{{
 
   autocmd Filetype js set tabstop=2 sts=2 sw=2 et smarttab
+  autocmd Filetype set tabstop=2 sts=2 sw=2 et smarttab
 
   "  }}}
 
@@ -276,3 +278,5 @@ function! Chomp(str)
 endfunction
 
 set runtimepath+=/home/rmerry/.vim/plugin/mpc
+
+filetype on
