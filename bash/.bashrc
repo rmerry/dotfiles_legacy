@@ -1,4 +1,4 @@
-# Exit if shell is not running interactively, 
+# Exit if shell is not running interactively$()
 case $- in
     *i*) ;;
     *) return;;
@@ -8,15 +8,31 @@ esac
 #   Global Variables   #
 ########################
 
-COLOUR_RED="\033[0;31m"
-COLOUR_YELLOW="\033[0;33m"
-COLOUR_GREEN="\033[0;32m"
-COLOUR_BLUE="\033[0;34m"
-COLOUR_LIGHT_RED="\033[1;31m"
-COLOUR_LIGHT_GREEN="\033[1;32m"
-COLOUR_WHITE="\033[1;37m"
-COLOUR_LIGHT_GRAY="\033[0;37m"
+COLOUR_RED="\e[0;31m"
+COLOUR_YELLOW="\e[0;33m"
+COLOUR_GREEN="\e[0;32m"
+COLOUR_BLUE="\e[0;34m"
+COLOUR_LIGHT_RED="\e[1;31m"
+COLOUR_LIGHT_GREEN="\e[1;32m"
+COLOUR_WHITE="\e[1;37m"
+COLOUR_LIGHT_GRAY="\e[0;37m"
 COLOUR_NONE="\e[0m"
+
+# COLOUR_BLACK=$(tput setaf 0)
+# COLOUR_RED=$(tput setaf 1)
+# COLOUR_GREEN=$(tput setaf 2)
+# COLOUR_YELLOW=$(tput setaf 3)
+# COLOUR_LIME_YELLOW=$(tput setaf 190)
+# COLOUR_POWDER_BLUE=$(tput setaf 153)
+# COLOUR_BLUE=$(tput setaf 4)
+# COLOUR_MAGENTA=$(tput setaf 5)
+# COLOUR_CYAN=$(tput setaf 6)
+# COLOUR_WHITE=$(tput setaf 7)
+# COLOUR_BRIGHT=$(tput bold)
+# COLOUR_NORMAL=$(tput sgr0)
+# COLOUR_BLINK=$(tput blink)
+# COLOUR_REVERSE=$(tput smso)
+# COLOUR_UNDERLINE=$(tput smul)
 
 ########################
 # Function Definitions #
@@ -27,21 +43,29 @@ gitBranchName() {
     branch_name="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')"
 
     if [[ -n $branch_name ]]; then
+        echo -n $branch_name
+    fi
+}
+
+gitBranchColour() {
+    branch_name="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')"
+
+    if [[ -n $branch_name ]]; then
 
         status="$(git status 2> /dev/null)"
 
         # Set color based on clean/staged/dirty.
         if [[ ${status} =~ "working directory clean" ]]; then
-            strcolour="$COLOUR_GREEN"
+            strcolour=$COLOUR_GREEN
         elif [[ ${status} =~ "Changes to be committed" ]]; then
-            strcolour="$COLOUR_LIGHT_RED"
+            strcolour=$COLOUR_LIGHT_RED
         else
-            strcolour="$COLOUR_YELLOW"
+            strcolour=$COLOUR_YELLOW
         fi
 
-        echo -e "$strcolour$branch_name$COLOUR_NONE"
+        echo -e -n $strcolour
     else
-        echo ""
+        return 1
     fi
 }
 
@@ -50,7 +74,8 @@ gitBranchName() {
 ########################
 
 HISTCONTROL=ignoreboth # No duplicates of lines ending in a space (in the history file)
-HISTFILESIZE=100000
+HISTSIZE=100000
+HISTFILESIZE=$HISTSIZE
 
 export EDITOR=vim
 
@@ -62,15 +87,16 @@ shopt -s histappend # Append to the history file, don't overwrite it
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
 rxvt*|xterm*|*-256color)
-    PS1="\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(gitBranchName) \$ "
+    # PS1="\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(gitBranchName) \$ "
+    #
+    # Had lots of problems with incorporating the git branch name; the important point is
+    # to wrap the variables in \[ \] blocks -- this tells bash that this is a non text 
+    # entry and therefore it will not count the string in the columns & rows calculation
+    PS1="\[\e[01;32m\]\u\[\e[0m\]:\[\e[01;34m\]\w \[\$(gitBranchColour)\]\[\$(gitBranchName)\]\[\e[0m\] \$ "
+    # PS1='\[\e[01;32m\]\u\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\] \[\$(gitBranchName)\]\[\e[0m\] \$ '
     ;;
 *)
     PS1="\u:\w \[$txtcyn\]\$(gitBranchName) \$ "
@@ -123,14 +149,3 @@ if ! shopt -oq posix; then
     fi
 fi
 
-########################
-#        Paths         #
-########################
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="/usr/java/jre1.8.0_92/bin:$PATH" # Add JRE to PATH
-export JAVA_HOME=/usr/java/jre1.8.0_92/bin
-
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-export PATH="$HOME/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH"
-export PATH=~/.cabal/bin:/opt/cabal/1.22/bin:/opt/ghc/7.10.3/bin:$PATH
