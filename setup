@@ -42,7 +42,7 @@ update_local() {
         copy_file ./git/ignore ~/.config/git/ignore
         ;;
     tmux)
-        copy_file ./tmux/.tmux.conf ~/.tmux/.tmux.conf
+        copy_file ./tmux/.tmux.conf ~/.tmux.conf
         ;;
     vim)
         copy_file ./vim/.vimrc ~/.vimrc
