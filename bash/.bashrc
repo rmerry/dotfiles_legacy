@@ -83,7 +83,7 @@ rxvt*|xterm*|*-256color)
     # Had lots of problems with incorporating the git branch name; the important point is
     # to wrap the variables in \[ \] blocks -- this tells bash that this is a non text 
     # entry and therefore it will not count the string in the columns & rows calculation
-    PS1="\[\e[01;32m\]\u\[\e[0m\]:\[\e[01;34m\]\w \[\$(gitBranchColour)\]\[\$(gitBranchName)\]\[\e[0m\] \$ "
+    PS1="\[\e[01;32m\]\u\[\e[0m\]:\[\e[01;34m\]\w \[\$(gitBranchColour)\]\$(gitBranchName)\[\e[0m\] \$ "
     # PS1='\[\e[01;32m\]\u\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\] \[\$(gitBranchName)\]\[\e[0m\] \$ '
     ;;
 *)
