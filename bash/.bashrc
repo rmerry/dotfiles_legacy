@@ -18,22 +18,6 @@ COLOUR_WHITE="\e[1;37m"
 COLOUR_LIGHT_GRAY="\e[0;37m"
 COLOUR_NONE="\e[0m"
 
-# COLOUR_BLACK=$(tput setaf 0)
-# COLOUR_RED=$(tput setaf 1)
-# COLOUR_GREEN=$(tput setaf 2)
-# COLOUR_YELLOW=$(tput setaf 3)
-# COLOUR_LIME_YELLOW=$(tput setaf 190)
-# COLOUR_POWDER_BLUE=$(tput setaf 153)
-# COLOUR_BLUE=$(tput setaf 4)
-# COLOUR_MAGENTA=$(tput setaf 5)
-# COLOUR_CYAN=$(tput setaf 6)
-# COLOUR_WHITE=$(tput setaf 7)
-# COLOUR_BRIGHT=$(tput bold)
-# COLOUR_NORMAL=$(tput sgr0)
-# COLOUR_BLINK=$(tput blink)
-# COLOUR_REVERSE=$(tput smso)
-# COLOUR_UNDERLINE=$(tput smul)
-
 ########################
 # Function Definitions #
 ########################
@@ -83,6 +67,7 @@ shopt -s checkwinsize # Check the win size after each command and update the val
 shopt -s extglob # Globbing Options (extended globs [extglob])
 #shopt -s globstar # The '**' glob matches all files and zero or more [sub]directories
 shopt -s histappend # Append to the history file, don't overwrite it
+shopt -s cdable_vars
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"

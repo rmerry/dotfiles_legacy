@@ -1,4 +1,4 @@
-export CDPATH=~/dev/work/sequoia:~/dev/work/sequoia/foundations:~/dev/work/sequoia/core
+# export CDPATH=~/dev/work/sequoia:~/dev/work/sequoia/foundations:~/dev/work/sequoia/core
 
 ########################
 #     Load Scripts     #
