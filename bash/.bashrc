@@ -8,15 +8,15 @@ esac
 #   Global Variables   #
 ########################
 
-COLOUR_RED="\e[0;31m"
-COLOUR_YELLOW="\e[0;33m"
-COLOUR_GREEN="\e[0;32m"
 COLOUR_BLUE="\e[0;34m"
-COLOUR_LIGHT_RED="\e[1;31m"
-COLOUR_LIGHT_GREEN="\e[1;32m"
-COLOUR_WHITE="\e[1;37m"
+COLOUR_GREEN="\e[0;32m"
 COLOUR_LIGHT_GRAY="\e[0;37m"
+COLOUR_LIGHT_GREEN="\e[1;32m"
+COLOUR_LIGHT_RED="\e[1;31m"
 COLOUR_NONE="\e[0m"
+COLOUR_RED="\e[0;31m"
+COLOUR_WHITE="\e[1;37m"
+COLOUR_YELLOW="\e[0;33m"
 
 ########################
 # Function Definitions #
@@ -49,7 +49,7 @@ gitBranchColour() {
 
         echo -e -n $strcolour
     else
-        return 1
+        printf ''
     fi
 }
 
@@ -58,16 +58,19 @@ gitBranchColour() {
 ########################
 
 HISTCONTROL=ignoreboth # No duplicates of lines ending in a space (in the history file)
-HISTSIZE=100000
+HISTSIZE=1000000
 HISTFILESIZE=$HISTSIZE
 
 export EDITOR=vim
 
+shopt -s cdable_vars  # `cd` will search for exported variables if path not found
+shopt -s cdspell      # Make minor corrections to misspellings of directories when using `cd`
 shopt -s checkwinsize # Check the win size after each command and update the values of LINES and COLUMNS
-shopt -s extglob # Globbing Options (extended globs [extglob])
-#shopt -s globstar # The '**' glob matches all files and zero or more [sub]directories
-shopt -s histappend # Append to the history file, don't overwrite it
-shopt -s cdable_vars
+shopt -s cmdhist      # Store multiline commands as a single history file entry
+shopt -s dirspell     # Make minor corrections to misspellings of directories
+shopt -s extglob      # Globbing Options (extended globs [extglob])
+shopt -s histappend   # Append to the history file, don't overwrite it
+# shopt -s globstar   # The '**' glob matches all files and zero or more [sub]directories
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
