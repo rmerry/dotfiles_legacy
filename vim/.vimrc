@@ -257,6 +257,12 @@ set t_Co=256
 
   " }}}
 
+  " Vimgrep settings {{{
+
+  set wildignore=*.o,*.obj,*/node_modules/*,tags
+
+  " }}}
+
 " }}}
 
 " Custom Keybindings {{{
@@ -271,7 +277,19 @@ set t_Co=256
   " For global replace
   nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
-  autocmd BufWritePost * call system("ctags -R")
+  " For Quick Fix and Location List windows
+  nnoremap <leader>gw :vimgrep /<C-R><C-W>/gj **<CR>:cwindow<CR>
+
+  " For vimgrep
+  nnoremap <leader>gw :vimgrep /<C-R><C-W>/gj **<CR>:cwindow<CR>
+  nnoremap <leader>gW :vimgrep /<C-R><C-A>/gj **<CR>:cwindow<CR>
+  nnoremap [Q :crewind<CR>
+  nnoremap ]Q :clast<CR>
+  nnoremap ]q :cnext<CR>
+  nnoremap [q :cprevious<CR>
+
+  " Run ctags on save
+  autocmd BufWritePost * call system("ctags -R &")
 
   " }}}
 
