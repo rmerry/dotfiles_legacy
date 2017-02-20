@@ -57,7 +57,6 @@ call vundle#begin()
   Plugin 'tpope/vim-fugitive' " git integration
   Plugin 'tpope/vim-cucumber'
   Plugin 'bling/vim-airline'
-  Plugin 'rking/ag.vim' 
   Plugin 'ngmy/vim-rubocop' 
   "Plugin 'airblade/vim-rooter' 
   "Plugin 'walm/jshint.vim' " JSHint should be intalled on the system, i.e., 'sudo npm install -g
@@ -255,6 +254,24 @@ set t_Co=256
   " Terminal Specific {{{
 
   set mouse=a " Mouse Support In Terminal
+
+  " }}}
+
+" }}}
+
+" Custom Keybindings {{{
+
+  " Tags etc {{{
+
+  " Taken from: http://stackoverflow.com/questions/597687/changing-variable-names-in-vim
+
+  " For local replace
+  nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+
+  " For global replace
+  nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
+  autocmd BufWritePost * call system("ctags -R")
 
   " }}}
 
