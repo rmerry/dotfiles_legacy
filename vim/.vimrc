@@ -229,8 +229,6 @@ set t_Co=256
   "set relativenumber
   set number " Line numbers
   set nowrap
-  set foldmethod=indent
-  set foldlevel=2
 
   " Tab Option
   set expandtab         " turn tabs into spaces
@@ -241,6 +239,14 @@ set t_Co=256
   set tabstop=2         " number of spaces tab 'counts for' in the file
 
   set laststatus=2 " always display statusbar
+
+  " }}}
+
+  " Folding {{{
+
+  set foldmethod=indent
+  set foldlevel=1
+  set foldcolumn=2
 
   " }}}
 
