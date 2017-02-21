@@ -286,13 +286,19 @@ set t_Co=256
   " For Quick Fix and Location List windows
   nnoremap <leader>gw :vimgrep /<C-R><C-W>/gj **<CR>:cwindow<CR>
 
-  " For vimgrep
-  nnoremap <leader>gw :vimgrep /<C-R><C-W>/gj **<CR>:cwindow<CR>
-  nnoremap <leader>gW :vimgrep /<C-R><C-A>/gj **<CR>:cwindow<CR>
-  nnoremap [Q :crewind<CR>
+  nnoremap [Q :cfirst<CR>
   nnoremap ]Q :clast<CR>
   nnoremap ]q :cnext<CR>
   nnoremap [q :cprevious<CR>
+
+  nnoremap [L :lfirst<CR>
+  nnoremap ]L :llast<CR>
+  nnoremap ]l :lnext<CR>
+  nnoremap [l :lprevious<CR>
+
+  " For vimgrep
+  nnoremap <leader>gw :vimgrep /<C-R><C-W>/gj **<CR>:botright cwindow<CR>
+  nnoremap <leader>gW :vimgrep /<C-R><C-A>/gj **<CR>:botright cwindow<CR>
 
   " Run ctags on save
   autocmd BufWritePost * call system("ctags -R &")
@@ -302,10 +308,6 @@ set t_Co=256
 " }}}
 
 " Post Initialisation Settings {{{
-
-if has('win32') && isdirectory('/development/git') " work machine
-  cd /development/git
-endif
 
 filetype plugin indent on
 syntax on
