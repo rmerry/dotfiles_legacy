@@ -53,6 +53,32 @@ gitBranchColour() {
     fi
 }
 
+inspireMe() {
+    local quote=$(((RANDOM % 5) + 1))
+
+    case $quote in
+    1)
+        echo -e "\e[03m \"an investment in knowledge always pays the best interest\"\e[23m [Benjamin Franklin]"
+        ;;
+    2)
+        echo -e "\e[03m \"I know not with what weapons World War III will be fought, but World War IV"
+        echo -e " will be fought with sticks and stones\"\e[23m [Albert Einstein]"
+        ;;
+    3)
+        echo -e "\e[03m \"the way to get started is to quit talking and begin doing\"\e[23m [Walt Disney]"
+        ;;
+    4)
+        echo -e "\e[03m \"the way to get started is to quit talking and begin doing\"\e[23m [Walt Disney]"
+        ;;
+    5)
+        echo -e "\e[03m \"things may come to those who wait. But only the"
+        echo -e " things left by those who hustle\"\e[23m [Abraham Lincoln]"
+        ;;
+    esac
+
+    echo ""
+}
+
 ########################
 #     Core Config      #
 ########################
@@ -115,12 +141,15 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='grep -E --color=auto'
 fi
 
+alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
+
 # git aliases
 alias lg='git log --color --graph --pretty=format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset --abbrev-commit'
 alias rpull='git pull --rebase'
 
 # Development
-alias ngrep='grep -Ern --exclude-dir=node_modules --exclude-dir=logs --exclude=\*.xml --exclude=\*.html --exclude=\*.js.map --exclude=\bundle.js --exclude=\app.*.js'
+alias egrep='grep -E'
+alias ngrep='grep -Ern --exclude-dir=node_modules --exclude-dir=logs --exclude=\vendor.*.js --exclude=\prettify.js --exclude=\*.csv --exclude=\*.xml --exclude=\*.html --exclude=\*.js.map --exclude=\bundle.js --exclude=\*.out --exclude=\tags --exclude=\app.*.js'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -137,3 +166,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
+bind '"\C-g":"git commit -m \"\"\e[D'
+
+inspireMe
