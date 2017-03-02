@@ -26,7 +26,6 @@
   " Global (terminal and gVim) {{{
     "set relativenumber
     set number " Line numbers
-    set wrap
 
     " Tab Option
     set expandtab         " turn tabs into spaces
@@ -47,8 +46,9 @@
   " }}}
 
   " Filetype Specific {{{
-    autocmd Filetype js set tabstop=2 sts=2 sw=2 et smarttab
     autocmd Filetype set tabstop=2 sts=2 sw=2 et smarttab
+    autocmd Filetype markdown,text set spell wrap linebreak
+    autocmd Filetype js set tabstop=2 sts=2 sw=2 et smarttab nowrap
   "  }}}
 
   " Omnifuncs
