@@ -17,6 +17,7 @@
   set incsearch      " show search matches as you type
   set nocompatible   " force not to run like vi (that's "vee-eye" people!)
   set noswapfile
+  set nowrap
   set showcmd
   set showmatch      " show matching parenthesis
   set bs=2           " Backspace not working on windows
@@ -24,7 +25,7 @@
 
 " Editing Settings {{{
   " Global (terminal and gVim) {{{
-    "set relativenumber
+    set relativenumber
     set number " Line numbers
 
     " Tab Option
@@ -48,7 +49,8 @@
   " Filetype Specific {{{
     autocmd Filetype set tabstop=2 sts=2 sw=2 et smarttab
     autocmd Filetype markdown,text set spell wrap linebreak
-    autocmd Filetype js set tabstop=2 sts=2 sw=2 et smarttab nowrap
+    autocmd Filetype javascript,ruby set tabstop=2 sts=2 sw=2 et smarttab 
+    autocmd FileType c,cpp,go,java,javascript,php,python,ruby autocmd BufWritePre <buffer> %s/\s\+$//e " Remove trailing whitespace
   "  }}}
 
   " Omnifuncs
@@ -99,7 +101,8 @@
   nnoremap <leader>gW :vimgrep /<C-R><C-A>/gj **<CR>:botright cwindow<CR>
 
   " Enhanced editing facilities
-  nnoremap <leader>x% %x``x " Remove surrounding {[( objects
+  nnoremap ds% %x``x          " Remove surrounding {[( objects
+  nnoremap ds" di"hPl2x       " Remove surrounding double quote
 
   " Run ctags on save
   " autocmd BufWritePost * call system("ctags -R")
@@ -109,6 +112,7 @@
   " Vundle Initialisation {{{
     " Vundle specific settings NOTE: Vundle must be installed in the ~/[.vim|vimfiles]/bundle folder
     call vundle#begin()
+    Plugin 'google/vim-searchindex'
     Plugin 'tpope/vim-commentary' " Comment out code 
     Plugin 'gmarik/Vundle.vim'
     Plugin 'altercation/vim-colors-solarized'
@@ -133,7 +137,8 @@
     Plugin 'tpope/vim-fugitive' " git integration
     Plugin 'tpope/vim-cucumber'
     Plugin 'bling/vim-airline'
-    Plugin 'ngmy/vim-rubocop' 
+    " Plugin 'ngmy/vim-rubocop' 
+    Plugin 'vim-ruby/vim-ruby'
     "Plugin 'airblade/vim-rooter' 
     "Plugin 'walm/jshint.vim' " JSHint should be intalled on the system, i.e., 'sudo npm install -g
     "Plugin 'scrooloose/nerdtree' " File browser
@@ -206,10 +211,13 @@
       let g:syntastic_loc_list_height = 3
       let g:syntastic_check_on_open = 1
       let g:syntastic_check_on_wq = 0
+      let g:syntastic_javascript_checkers = ['eslint']
+      let g:syntastic_ruby_checkers = ['rubocop']
 
-      augroup js_linter_setup
+      augroup linter_setup
 
         autocmd FileType javascript call SetJSLinter()
+        autocmd FileType ruby call SetRubyOptions()
 
         function! SetJSLinter()
           "the api folder is a work specific environment configuration
@@ -220,6 +228,14 @@
             "if !filereadable(".jscsrc")
             "  autocmd FileType javascript let g:syntastic_javascript_jscs_args = "--config ~/dev/git/whitebeam/wb-gulp-tasks/config/.jscsrc"
             "endif
+          endif
+        endfunction
+
+        function! SetRubyOptions()
+          let g:syntastic_javascript_checkers = ['rubocop']
+
+          if filereadable(globpath('.', '.rubocop.yaml'))
+            let g:syntastic_ruby_rubocop_args = "--config .rubocop.yaml"
           endif
         endfunction
 
